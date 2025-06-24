@@ -1,10 +1,29 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import Home from './pages/home/home'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './pages/home/home';
+import Perfil from './pages/profile/profile';
+import Layout from './components/upperBar/upperBar';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      {
+        index: true, // equivale a path: '/'
+        element: <Home />,
+      },
+      {
+        path: ':username',
+        element: <Perfil />,
+      },
+    ],
+  },
+]);
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <Home />
-  </StrictMode>,
-)
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
