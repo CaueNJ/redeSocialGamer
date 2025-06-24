@@ -8,6 +8,10 @@ Projeto de rede social para gamers feito para o meu P.I (Projeto Integrador) da 
 - Vite
 - Tailwind CSS
 - Node JS
+- Laravel
+- PHP
+- Composer
+- PostGreSQL
 
 ## 📦 Instalação
 
