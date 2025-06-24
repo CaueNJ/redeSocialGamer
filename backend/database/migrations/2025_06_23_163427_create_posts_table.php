@@ -9,13 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-    }
+public function up()
+{
+    Schema::create('posts', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('user_id')->constrained()->onDelete('cascade');
+        $table->text('content');
+        $table->string('image_path')->nullable();
+        $table->timestamps();
+    });
+}
 
     /**
      * Reverse the migrations.
