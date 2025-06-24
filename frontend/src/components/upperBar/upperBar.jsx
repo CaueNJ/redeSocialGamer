@@ -1,14 +1,25 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import NotFoundModal from '../../components/notFoundModal/notFoundModal';
 
 export default function UpperBar() {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
-    const handleSearch = (e) => {
+    const handleSearch = async (e) => {
         e.preventDefault();
-        if (username.trim()) {
-            navigate(`/${username}`);
+        if (!username.trim()) return;
+
+        try {
+            const response = await fetch(`http://localhost:8000/api/profile/${username}`);
+            if (!response.ok) throw new Error('Perfil não encontrado');
+
+            const data = await response.json();
+            navigate(`/${data.username}`);
+        } catch (error) {
+            setShowModal(true);
+        } finally {
             setUsername('');
         }
     };
@@ -30,7 +41,7 @@ export default function UpperBar() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Procure por um perfil ou posts sobre um jogo"
+                        placeholder="Procure por um perfil"
                         className="flex-grow border border-gray-300 rounded px-4 py-2 text-white"
                     />
                     <button
@@ -45,6 +56,13 @@ export default function UpperBar() {
             <main className="p-4">
                 <Outlet />
             </main>
+
+            <NotFoundModal
+                show={showModal}
+                onClose={() => setShowModal(false)}
+                title="Ops..."
+                message="Não encontramos a informação que você quer nesse momento. Tente novamente mais tarde."
+            />
         </div>
     );
 }

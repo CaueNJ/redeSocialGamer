@@ -1,12 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Layout from './components/Layout';
+import UpperBar from './components/UpperBar';
 import Home from './pages/Home';
 import Perfil from './pages/Perfil';
 
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <Layout />,
+        element: <UpperBar />,
         children: [
             { index: true, element: <Home /> },
             { path: ':username', element: <Perfil /> },
