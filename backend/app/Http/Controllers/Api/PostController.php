@@ -27,4 +27,24 @@ class PostController extends Controller
             return response()->json($posts);
         }
 
+        public function showByUsername($username)
+        {
+            $posts = DB::select("
+                SELECT 
+                    posts.id,
+                    posts.content AS conteudo,
+                    posts.image_path AS urlImg,
+                    users.name AS nome,
+                    users.username,
+                    users.avatar
+                FROM posts
+                JOIN users ON users.id = posts.user_id
+                WHERE users.username = ?
+                ORDER BY posts.created_at DESC
+            ", [$username]);
+
+            return response()->json($posts);
+        }
+
+
 }
