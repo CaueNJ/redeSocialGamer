@@ -26,7 +26,7 @@ export default function UpperBar() {
 
     return (
         <div>
-            <header className="relative bg-gray-800 text-white p-4 flex items-center">
+            <header className="relative bg-blue-950 text-white p-4 flex items-center">
                 {/* Nome do projeto à esquerda */}
                 <Link to="/" className="text-xl font-bold z-10">
                     Rede Gamer
@@ -53,7 +53,7 @@ export default function UpperBar() {
                 </form>
             </header>
 
-            <main className="p-4">
+            <main>
                 <Outlet />
             </main>
 

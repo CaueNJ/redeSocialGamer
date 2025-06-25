@@ -4,6 +4,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/home/home';
 import Perfil from './pages/profile/profile';
 import Layout from './components/upperBar/upperBar';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
 
 const router = createBrowserRouter([
   {

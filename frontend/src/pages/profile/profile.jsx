@@ -83,7 +83,6 @@ export default function Perfil() {
                                 )}
                                 <div className="flex gap-6 text-gray-500 text-sm mt-3">
                                     <button className="hover:text-blue-500 flex items-center gap-1">💬 <span className="hidden sm:inline">Comentar</span></button>
-                                    <button className="hover:text-green-500 flex items-center gap-1">🔁 <span className="hidden sm:inline">Repostar</span></button>
                                     <button className="hover:text-pink-500 flex items-center gap-1">❤️ <span className="hidden sm:inline">Curtir</span></button>
                                 </div>
                             </div>
