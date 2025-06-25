@@ -37,7 +37,7 @@ export default function Perfil() {
                     <img src={posts[0]?.avatar} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
                     <h2 className="text-xl font-bold text-center md:text-left">{posts[0]?.nome}</h2>
                     <p className="text-sm text-gray-500 text-center md:text-left mt-1">
-                        Jogador ativo | Perfil de @{username}
+                        @{username}
                     </p>
                 </div>
                 <div className="mt-6">
@@ -83,7 +83,7 @@ export default function Perfil() {
                                 )}
                                 <div className="flex gap-6 text-gray-500 text-sm mt-3">
                                     <button className="hover:text-blue-500 flex items-center gap-1">💬 <span className="hidden sm:inline">Comentar</span></button>
-                                    <button className="hover:text-pink-500 flex items-center gap-1">❤️ <span className="hidden sm:inline">Curtir</span></button>
+                                    <button className="hover:text-pink-500 flex items-center gap-1">🔁 <span className="hidden sm:inline">Repostar</span></button>
                                 </div>
                             </div>
                         </div>

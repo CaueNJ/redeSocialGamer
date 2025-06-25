@@ -1,11 +1,15 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import NotFoundModal from '../../components/notFoundModal/notFoundModal';
+import SideBarMenu from '../../components/sideBar/sideBarMenu';
+
 
 export default function UpperBar() {
     const [username, setUsername] = useState('');
     const navigate = useNavigate();
     const [showModal, setShowModal] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -26,9 +30,9 @@ export default function UpperBar() {
 
     return (
         <div>
-            <header className="relative bg-blue-950 text-white p-4 flex items-center">
+            <header className="relative bg-blue-950 text-white p-4 flex items-center justify-between">
                 {/* Nome do projeto à esquerda */}
-                <Link to="/" className="text-xl font-bold z-10">
+                <Link to="/" className="text-xl font-bold">
                     Rede Gamer
                 </Link>
 
@@ -51,6 +55,15 @@ export default function UpperBar() {
                         Buscar
                     </button>
                 </form>
+
+                {/* Ícone do usuário no canto direito */}
+                <img
+                    src={"/assets/perfil_deslogado.png"}
+                    alt="User"
+                    className="w-10 h-10 rounded-full cursor-pointer z-10"
+                    onClick={() => setSidebarOpen(true)}
+                />
+
             </header>
 
             <main>
@@ -63,6 +76,9 @@ export default function UpperBar() {
                 title="Ops..."
                 message="Não encontramos a informação que você quer nesse momento. Tente novamente mais tarde."
             />
+
+            {sidebarOpen && <SideBarMenu onClose={() => setSidebarOpen(false)} />}
+
         </div>
     );
 }
