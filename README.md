@@ -17,5 +17,8 @@ Projeto de rede social para gamers feito para o meu P.I (Projeto Integrador) da 
 
 ```bash
 npm install
+composer install
+
+php artisan serve
 npm run dev
 ```
