@@ -3,25 +3,28 @@ import { useEffect, useState } from 'react';
 
 export default function Perfil() {
     const { username } = useParams();
-    const [posts, setPosts] = useState(null);
+    const [profile, setProfile] = useState(null);
+    const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchProfile = async () => {
             try {
                 const response = await fetch(`http://localhost:8000/api/posts/${username}`);
                 if (!response.ok) throw new Error('Erro na resposta da API');
 
                 const data = await response.json();
-                setPosts(data);
+                setProfile(data.profile);
+                setPosts(data.posts);
             } catch (err) {
-                setPosts([]); // garante que a tela não fique travada
+                setProfile(null);
+                setPosts([]);
             } finally {
                 setLoading(false);
             }
         };
 
-        fetchPosts();
+        fetchProfile();
     }, [username]);
 
     if (loading) return <div className="text-center mt-10">Carregando...</div>;
@@ -33,23 +36,35 @@ export default function Perfil() {
             {/* Sidebar esquerda */}
             <aside className="w-full md:w-72 bg-white shadow-md p-6">
                 <div className="flex flex-col items-center md:items-start">
-                    <img src={posts[0]?.avatar} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
-                    <h2 className="text-xl font-bold text-center md:text-left">{posts[0]?.nome}</h2>
+                    <img src={profile?.avatar} alt="Avatar" className="w-24 h-24 rounded-full mb-4" />
+                    <h2 className="text-xl font-bold text-center md:text-left">{profile?.name}</h2>
                     <p className="text-sm text-gray-500 text-center md:text-left mt-1">
                         @{username}
                     </p>
                 </div>
-                <div className="mt-6">
-                    <a href="#" className="text-blue-600 hover:underline">
-                        Ver mais sobre este jogador
-                    </a>
-                    <h3 className="font-semibold text-sm text-gray-600 mb-2 mt-4">Jogos favoritos</h3>
-                    <ul className="text-sm space-y-1">
-                        <li>The Witcher 3</li>
-                        <li>Age of Empires/Mythology</li>
-                        <li>WoW</li>
-                    </ul>
-                </div>
+
+                {/* Descrição do usuário */}
+                {profile?.bio && (
+                    <p className="mt-4 text-sm text-gray-700 text-center md:text-left">
+                        {profile.bio}
+                    </p>
+                )}
+
+                {/* Links sociais */}
+                {profile?.links && profile.links.length > 0 && (
+                    <div className="mt-4">
+                        <h3 className="font-semibold text-sm text-gray-600 mb-2">Meus links</h3>
+                        <ul className="space-y-1 text-sm">
+                            {profile.links.map((link, index) => (
+                                <li key={index}>
+                                    <a href={link.url} className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">
+                                        {link.nome}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </aside>
 
             {/* Feed */}
@@ -94,9 +109,8 @@ export default function Perfil() {
             <aside className="w-full md:w-64 bg-white shadow-md p-6 order-2 md:order-none">
                 <h3 className="font-semibold text-lg mb-4">Sugestões</h3>
                 <ul className="space-y-2 text-sm">
-                    <li className="border-b pb-2">🎯 JogadorX está online</li>
-                    <li className="border-b pb-2">🔥 Novo jogo recomendado: Rocket Rumble</li>
-                    <li className="border-b pb-2">🆕 Atualização disponível</li>
+                    <li className="border-b pb-2">🔥 Divulgue nossa plataforma!</li>
+                    <li className="border-b pb-2">🎯 Um perfil bem construído chama mais atenção...</li>
                 </ul>
             </aside>
         </div>
