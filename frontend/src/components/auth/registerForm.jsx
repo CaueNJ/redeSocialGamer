@@ -5,64 +5,87 @@ export default function RegisterForm({ onClose }) {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Aqui você vai chamar sua API de cadastro
-        console.log('Cadastro com:', { name, username, email, password });
-        onClose();
+
+        try {
+            const res = await fetch('http://localhost:8000/api/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, username, email, password }),
+            });
+
+            if (!res.ok) {
+                const data = await res.json();
+                setError(data.message || 'Erro no cadastro');
+                return;
+            }
+
+            const data = await res.json();
+            setShowSuccess(true);
+            setTimeout(() => {
+                onClose(); // Fecha o sidebar após mostrar o alerta
+            }, 3000);
+        } catch (err) {
+            setError('Erro inesperado. Tente novamente.');
+        }
     };
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4">
             <h2 className="text-xl font-bold mb-4">Cadastrar</h2>
+            {error && <p className="text-red-600">{error}</p>}
             <input
                 type="text"
-                placeholder="Nome completo"
-                className="w-full px-4 py-2 border rounded"
+                placeholder="Nome"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                className="w-full px-4 py-2 border rounded"
             />
             <input
                 type="text"
-                placeholder="Username"
-                className="w-full px-4 py-2 border rounded"
+                placeholder="Usuário"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
+                className="w-full px-4 py-2 border rounded"
             />
             <input
                 type="email"
                 placeholder="Email"
-                className="w-full px-4 py-2 border rounded"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="w-full px-4 py-2 border rounded"
             />
             <input
                 type="password"
                 placeholder="Senha"
-                className="w-full px-4 py-2 border rounded"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="w-full px-4 py-2 border rounded"
             />
-            <button type="submit" className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+            <button
+                type="submit"
+                className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            >
                 Cadastrar
             </button>
-
             <p className="text-sm text-center">
                 Já tem conta?{' '}
                 <button
                     type="button"
-                    className="text-green-600 underline"
+                    className="text-blue-600 underline"
                     onClick={() => onClose('login')}
                 >
                     Entrar
                 </button>
             </p>
-
         </form>
     );
 }

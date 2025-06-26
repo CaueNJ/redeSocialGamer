@@ -1,12 +1,13 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import UpperBar from './components/UpperBar';
-import Home from './pages/Home';
-import Perfil from './pages/Perfil';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Home from './pages/home/home';
+import Perfil from './pages/profile/profile';
+import Layout from './components/upperBar/upperBar';
 
+// Roteador da aplicação
 const router = createBrowserRouter([
     {
         path: '/',
-        element: <UpperBar />,
+        element: <Layout />,
         children: [
             { index: true, element: <Home /> },
             { path: ':username', element: <Perfil /> },

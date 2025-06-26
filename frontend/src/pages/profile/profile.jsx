@@ -15,7 +15,6 @@ export default function Perfil() {
                 const data = await response.json();
                 setPosts(data);
             } catch (err) {
-                console.error('Erro ao buscar posts do perfil:', err);
                 setPosts([]); // garante que a tela não fique travada
             } finally {
                 setLoading(false);

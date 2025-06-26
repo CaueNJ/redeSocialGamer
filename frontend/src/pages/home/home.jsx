@@ -30,7 +30,7 @@ export default function Home() {
                     spaceBetween={20}
                     slidesPerView={1}
                     loop={true}
-                    autoplay={{ delay: 10000 }}
+                    autoplay={{ delay: 5000 }}
                     navigation
                     pagination={{ clickable: true }}
                     breakpoints={{
