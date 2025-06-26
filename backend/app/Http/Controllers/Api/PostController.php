@@ -30,7 +30,7 @@ class PostController extends Controller
         public function showByUsername($username)
         {
             $user = DB::table('users')
-                ->select('name', 'username', 'avatar', 'bio', 'links')
+                ->select('name', 'username', 'avatar', 'bio', 'links', 'banner')
                 ->where('username', $username)
                 ->first();
 
