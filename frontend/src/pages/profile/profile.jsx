@@ -69,6 +69,15 @@ export default function Perfil() {
 
             {/* Feed */}
             <main className="flex-1 p-4 md:p-6 overflow-y-auto">
+                {profile?.banner && (
+                    <div className="w-full mb-6">
+                        <img
+                            src={profile.banner}
+                            alt="Banner do perfil"
+                            className="w-full max-h-60 object-cover rounded-lg shadow"
+                        />
+                    </div>
+                )}
                 <h1 className="text-2xl font-bold mb-4">Feed</h1>
 
                 <div className="space-y-4">
@@ -88,9 +97,9 @@ export default function Perfil() {
                                     <span className="text-gray-500 text-sm">@{post.username}</span>
                                 </div>
                                 <p className="text-sm text-gray-800 mt-1">{post.conteudo}</p>
-                                {post.urlImg && (
+                                {post.urlimg && (
                                     <img
-                                        src={post.urlImg}
+                                        src={post.urlimg}
                                         alt="Imagem do post"
                                         className="mt-3 rounded-lg w-full max-h-100 object-contain border"
                                     />

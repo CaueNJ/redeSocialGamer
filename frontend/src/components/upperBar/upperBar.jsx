@@ -58,9 +58,9 @@ export default function UpperBar() {
 
                 {/* Ícone do usuário no canto direito */}
                 <img
-                    src={"/assets/perfil_deslogado.png"}
+                    src={"/assets/menu-tres-barras-destacadas.png"}
                     alt="User"
-                    className="w-10 h-10 rounded-full cursor-pointer z-10"
+                    className="w-8 h-8 cursor-pointer z-10"
                     onClick={() => setSidebarOpen(true)}
                 />
 
